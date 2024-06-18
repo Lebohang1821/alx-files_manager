@@ -1,9 +1,12 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
+// Describe the test suite for the AppController
 describe('+ AppController', () => {
   before(function (done) {
     this.timeout(10000);
+
+    // Connect to the database and clear the users and files collections
     Promise.all([dbClient.usersCollection(), dbClient.filesCollection()])
       .then(([usersCollection, filesCollection]) => {
         Promise.all([usersCollection.deleteMany({}), filesCollection.deleteMany({})])
@@ -12,6 +15,7 @@ describe('+ AppController', () => {
       }).catch((connectErr) => done(connectErr));
   });
 
+  // Describe the test suite for the /status endpoint
   describe('+ GET: /status', () => {
     it('+ Services are online', function (done) {
       request.get('/status')
