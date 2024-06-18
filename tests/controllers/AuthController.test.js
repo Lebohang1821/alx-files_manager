@@ -1,7 +1,9 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
+// Describe the test suite for the AuthController
 describe('+ AuthController', () => {
+  // Mock user data for testing
   const mockUser = {
     email: 'kaido@beast.com',
     password: 'hyakuju_no_kaido_wano',
@@ -14,6 +16,7 @@ describe('+ AuthController', () => {
       .then((usersCollection) => {
         usersCollection.deleteMany({ email: mockUser.email })
           .then(() => {
+            // Create a new user with the mock user data
             request.post('/users')
               .send({
                 email: mockUser.email,
@@ -91,6 +94,8 @@ describe('+ AuthController', () => {
 
     it('+ Succeeds for an existing user', function (done) {
       this.timeout(5000);
+      
+      // Send a GET request to /connect with valid credentials
       request.get('/connect')
         .auth(mockUser.email, mockUser.password, { type: 'basic' })
         .expect(200)
