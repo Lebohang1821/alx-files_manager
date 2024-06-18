@@ -4,6 +4,7 @@ import { join as joinPath } from 'path';
 import { existsSync, readdirSync, unlinkSync, statSync } from 'fs';
 import dbClient from '../../utils/db';
 
+//Motekema and Joshua 
 describe('+ FilesController', () => {
   const baseDir = `${process.env.FOLDER_PATH || ''}`.trim().length > 0
     ? process.env.FOLDER_PATH.trim()
@@ -13,10 +14,10 @@ describe('+ FilesController', () => {
     password: 'mochi_mochi_whole_cake',
   };
   /**
-   * 3 sample files
-   * + 1 -> file
-   * + 2 -> folder
-   * + 3 -> file for file 2
+   * 3 sample file
+   * + 1 -> files
+   * + 2 -> folders
+   * + 3 -> file for files 2
    */
   const mockFiles = [
     {
@@ -44,7 +45,7 @@ describe('+ FilesController', () => {
         '+ Chapter 48: 20 years',
         '+ Chapter 49: The world you wish for',
         '+ Chapter 50: Honor',
-        '+ Chapter 51: The shogun of Wano - Kozuki Momonosuke',
+        '+ Chapter 51: The Shogun of Wano - Kozuki Momonosuke',
         '+ Chapter 52: New morning',
         '',
       ].join('\n'),
@@ -184,7 +185,7 @@ describe('+ FilesController', () => {
       this.timeout(5000);
       request.post('/files')
         .set('X-Token', token)
-        .send({ name: 'manga_titles.txt', type: 'nakamura' })
+        .send({ name: 'manga_titles.txt', type: 'Nakamura' })
         .expect(400)
         .end((requestErr, res) => {
           if (requestErr) {
