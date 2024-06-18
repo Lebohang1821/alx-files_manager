@@ -6,10 +6,11 @@ import dbClient from '../utils/db';
 const userQueue = new Queue('email sending');
 
 export default class UsersController {
+// Method to create a new user
   static async postNew(req, res) {
     const email = req.body ? req.body.email : null;
     const password = req.body ? req.body.password : null;
-
+// Validating presence of email and password in request body
     if (!email) {
       res.status(400).json({ error: 'Missing email' });
       return;
@@ -27,7 +28,7 @@ export default class UsersController {
     const insertionInfo = await (await dbClient.usersCollection())
       .insertOne({ email, password: sha1(password) });
     const userId = insertionInfo.insertedId.toString();
-
+ // Adding a job to the Bull queue for sending email
     userQueue.add({ userId });
     res.status(201).json({ email, id: userId });
   }
