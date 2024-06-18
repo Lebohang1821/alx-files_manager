@@ -1,23 +1,23 @@
 import mongodb from 'mongodb';
-import Collection from 'mongodb/lib/collection';
 import envLoader from './env_loader';
 
 /**
- * It represents MongoDB client.
+ * Represents MongoDB client.
  */
 class DBClient {
   /**
-   * It makes new DBClient instance.
+   * Creates a new DBClient instance.
    */
   constructor() {
-    envLoader();
+    envLoader(); // Load environment variables from .env file
+
     const host = process.env.DB_HOST || 'localhost';
     const port = process.env.DB_PORT || 27017;
     const database = process.env.DB_DATABASE || 'files_manager';
     const dbURL = `mongodb://${host}:${port}/${database}`;
 
     this.client = new mongodb.MongoClient(dbURL, { useUnifiedTopology: true });
-    this.client.connect();
+    this.client.connect(); // Connect to MongoDB server
   }
 
   /**
@@ -29,7 +29,7 @@ class DBClient {
   }
 
   /**
-   * Retrieves number of users in database.
+   * Retrieves the number of users in the database.
    * @returns {Promise<Number>}
    */
   async nbUsers() {
@@ -37,7 +37,7 @@ class DBClient {
   }
 
   /**
-   * Retrieves number of files in database.
+   * Retrieves the number of files in the database.
    * @returns {Promise<Number>}
    */
   async nbFiles() {
@@ -45,7 +45,7 @@ class DBClient {
   }
 
   /**
-   * Retrieves reference to `users` collection.
+   * Retrieves a reference to the `users` collection.
    * @returns {Promise<Collection>}
    */
   async usersCollection() {
@@ -53,7 +53,7 @@ class DBClient {
   }
 
   /**
-   * Retrieves reference to `files` collection.
+   * Retrieves a reference to the `files` collection.
    * @returns {Promise<Collection>}
    */
   async filesCollection() {
@@ -61,5 +61,8 @@ class DBClient {
   }
 }
 
-export const dbClient = new DBClient();
+// Create a singleton instance of DBClient
+const dbClient = new DBClient();
+
+// Export the singleton instance of DBClient as default
 export default dbClient;
