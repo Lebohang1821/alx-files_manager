@@ -53,7 +53,7 @@ const isValidId = (id) => {
 
 export default class FilesController {
   /**
-   * Uploads a file.
+   * Uploads the file.
    * @param {Request} req The Express request object.
    * @param {Response} res The Express response object.
    */
@@ -96,8 +96,8 @@ export default class FilesController {
     const baseDir = `${process.env.FOLDER_PATH || ''}`.trim().length > 0
       ? process.env.FOLDER_PATH.trim()
       : joinPath(tmpdir(), DEFAULT_ROOT_FOLDER);
-    // default baseDir == '/tmp/files_manager'
-    // or (on Windows) '%USERPROFILE%/AppData/Local/Temp/files_manager';
+    // default based == '/tmp/files_manager'
+    // or (on Macbook) '%USERPROFILE%/AppData/Local/Temp/files_manager';
     const newFile = {
       userId: new mongoDBCore.BSON.ObjectId(userId),
       name,
@@ -160,7 +160,7 @@ export default class FilesController {
   }
 
   /**
-   * Retrieves files associated with a specific user.
+   * Retrieves files associated with the specific users.
    * @param {Request} req The Express request object.
    * @param {Response} res The Express response object.
    */
@@ -259,7 +259,7 @@ export default class FilesController {
   }
 
   /**
-   * Retrieves the content of a file.
+   * Retrieves a content of the file.
    * @param {Request} req The Express request object.
    * @param {Response} res The Express response object.
    */
