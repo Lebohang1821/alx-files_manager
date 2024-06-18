@@ -2,6 +2,7 @@
 import dbClient from '../../utils/db';
 
 describe('+ UserController', () => {
+  // Mock user data to be used in tests
   const mockUser = {
     email: 'beloxxi@blues.com',
     password: 'melody1982',
@@ -18,6 +19,7 @@ describe('+ UserController', () => {
     setTimeout(done, 5000);
   });
 
+  // Describe block for the POST /users endpoin
   describe('+ POST: /users', () => {
     it('+ Fails when there is no email and there is password', function (done) {
       this.timeout(5000);
@@ -35,6 +37,7 @@ describe('+ UserController', () => {
         });
     });
 
+    // Test case for missing password but present email
     it('+ Fails when there is email and there is no password', function (done) {
       this.timeout(5000);
       request.post('/users')
@@ -51,6 +54,7 @@ describe('+ UserController', () => {
         });
     });
 
+    // Test case for successful user creation
     it('+ Succeeds when the new user has a password and email', function (done) {
       this.timeout(5000);
       request.post('/users')
@@ -69,6 +73,7 @@ describe('+ UserController', () => {
         });
     });
 
+    // Test case for trying to create a user that already exists
     it('+ Fails when the user already exists', function (done) {
       this.timeout(5000);
       request.post('/users')
