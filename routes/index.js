@@ -9,11 +9,11 @@ import { APIError, errorResponse } from '../middlewares/error';
 
 /**
  * Injects routes with their handlers to the given Express application.
- * @param {Express} api
+ * @param {Express} API
  */
 const injectRoutes = (api) => {
-  api.get('/status', AppController.getStatus);
   api.get('/stats', AppController.getStats);
+  api.get('/status', AppController.getStatus);
 
   api.get('/connect', basicAuthenticate, AuthController.getConnect);
   api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnect);
@@ -25,8 +25,8 @@ const injectRoutes = (api) => {
   api.get('/files/:id', xTokenAuthenticate, FilesController.getShow);
   api.get('/files', xTokenAuthenticate, FilesController.getIndex);
   api.put('/files/:id/publish', xTokenAuthenticate, FilesController.putPublish);
-  api.put('/files/:id/unpublish', xTokenAuthenticate, FilesController.putUnpublish);
   api.get('/files/:id/data', FilesController.getFile);
+  api.put('/files/:id/unpublish', xTokenAuthenticate, FilesController.putUnpublish);
 
   api.all('*', (req, res, next) => {
     errorResponse(new APIError(404, `Cannot ${req.method} ${req.url}`), req, res, next);
